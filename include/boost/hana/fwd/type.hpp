@@ -143,6 +143,20 @@ namespace boost { namespace hana {
     //! @endcode
     //!
     //!
+    //! Type objects as constructors
+    //! ----------------------------
+#error write this
+    //! `type<T>` is a function returning an object of type `T` constructed
+    //! with the arguments passed to it:
+    //! @snippet example/type/construct.cpp main
+    //!
+    //! To use an initializer list, one should construct it explicitly:
+    //! @snippet example/type/initializer_list.cpp main
+    //!
+    //! `decltype(type<T>)` also has a nested alias to `T` named `type`.
+    //! Hence, it can be used as a metafunction returning `T`:
+    //!
+    //!
     //! The actual representation of a Type
     //! -----------------------------------
     //! For subtle reasons having to do with ADL, the actual type of the

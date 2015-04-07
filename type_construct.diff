@@ -1,0 +1,210 @@
+commit a74bb804907491eab1341a725cabcacf8bc167bc
+Author: Louis Dionne <ldionne.2@gmail.com>
+Date:   Wed Oct 22 12:27:33 2014 -0400
+
+    Type: clean up and remove misplaced functionality
+
+    The ability to construct objects of a type T by calling the type<T>
+    object was removed; make<T> should be used instead.
+
+diff --git a/example/type/construct.cpp b/example/type/construct.cpp
+deleted file mode 100644
+index 7272ab6..0000000
+
+diff --git a/example/type/initializer_list.cpp b/example/type/initializer_list.cpp
+deleted file mode 100644
+index 8a0e3fd..0000000
+diff --git a/include/boost/hana/type/type.hpp b/include/boost/hana/type/type.hpp
+index 2e8f67c..5ff3fad 100644
+--- a/include/boost/hana/type/type.hpp
++++ b/include/boost/hana/type/type.hpp
+@@ -73,25 +73,11 @@ namespace boost { namespace hana {
+     struct Metafunction { };
+
+     namespace type_detail {
+-        template <typename T, typename ...Nothing>
++        template <typename T>
+         struct make_type {
+             struct hidden : operators::enable_adl {
+                 using hana_datatype = Type;
+                 using type = T;
+-
+-                template <typename ...Args>
+-                static constexpr auto construct(int, Args ...args)
+-                    -> decltype(T{args...})
+-                { return T{args...}; }
+-
+-                template <typename ...Args>
+-                static constexpr auto construct(long, Args ...args)
+-                    -> decltype(T(args...))
+-                { return T(args...); }
+-
+-                template <typename ...Args>
+-                constexpr auto operator()(Args ...args) const
+-                { return construct(int{0}, args...); }
+             };
+         };
+     }
+@@ -100,15 +86,10 @@ namespace boost { namespace hana {
+     //! @relates Type
+     //! @hideinitializer
+     //!
+-    //! `type<T>` is a function returning an object of type `T` constructed
+-    //! with the arguments passed to it:
+-    //! @snippet example/type/construct.cpp main
+-    //!
+-    //! To use an initializer list, one should construct it explicitly:
+-    //! @snippet example/type/initializer_list.cpp main
+-    //!
+-    //! `decltype(type<T>)` also has a nested alias to `T` named `type`.
+-    //! Hence, it can be used as a metafunction returning `T`:
++    //! `type<T>` is an object of an unspecified type such that
++    //! `decltype(type<T>)` has a nested alias to `T` named `type`.
++    //! In other words `decltype(type<T>)` is a Boost.MPL nullary
++    //! metafunction returning `T`:
+     //! @snippet example/type/as_metafunction.cpp main
+     template <typename T>
+     constexpr typename type_detail::make_type<T>::hidden type{};
+@@ -197,37 +178,6 @@ namespace boost { namespace hana {
+         };
+     }
+
+-    namespace detail {
+-        template <typename f>
+-        struct is_metafunction_class {
+-            static constexpr bool value = false;
+-        };
+-
+-        template <typename f, bool = is_metafunction_class<f>::value>
+-        struct type_function {
+-            template <typename ...x>
+-            using apply = decltype((*(f*)0)(type<x>...));
+-        };
+-
+-        template <typename f>
+-        struct type_function<f, true> : f { };
+-
+-        template <template <typename ...> class f>
+-        struct is_metafunction_class<type_detail::template_<f>> {
+-            static constexpr bool value = true;
+-        };
+-
+-        template <template <typename ...> class f>
+-        struct is_metafunction_class<type_detail::metafunction<f>> {
+-            static constexpr bool value = true;
+-        };
+-
+-        template <typename f>
+-        struct is_metafunction_class<type_detail::metafunction_class<f>> {
+-            static constexpr bool value = true;
+-        };
+-    }
+-
+     //! Lift a template to a function on `Type`s.
+     //! @relates Type
+     //!
+diff --git a/test/type/construct.cpp b/test/type/construct.cpp
+deleted file mode 100644
+index b7fa6ac..0000000
+--- a/test/type/construct.cpp
++++ /dev/null
+@@ -1,27 +0,0 @@
+-/*
+-@copyright Louis Dionne 2014
+-Distributed under the Boost Software License, Version 1.0.
+-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
+- */
+-
+-#include <boost/hana/type.hpp>
+-
+-#include <boost/hana/detail/assert.hpp>
+-
+-#include <initializer_list>
+-#include <utility>
+-#include <vector>
+-using namespace boost::hana;
+-
+-
+-int main() {
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<int>() == int{});
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<int>(2) == int{2});
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<float>(2.42f) == float{2.42});
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<double>(2.42) == double{2.42});
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<double>(2.2f) == double{2.2f});
+-    BOOST_HANA_CONSTEXPR_ASSERT(type<float>(2.2) == float{2.2});
+-
+-    BOOST_HANA_RUNTIME_ASSERT(type<std::vector<int>>(std::initializer_list<int>{1, 2, 3}) == std::vector<int>{1, 2, 3});
+-    BOOST_HANA_RUNTIME_ASSERT(type<std::pair<int, char>>(1, '2') == std::make_pair(1, '2'));
+-}
+diff --git a/test/type/detail_type_function.cpp b/test/type/detail_type_function.cpp
+deleted file mode 100644
+index d078d56..0000000
+--- a/test/type/detail_type_function.cpp
++++ /dev/null
+@@ -1,66 +0,0 @@
+-/*
+-@copyright Louis Dionne 2014
+-Distributed under the Boost Software License, Version 1.0.
+-(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
+- */
+-
+-#include <boost/hana/type.hpp>
+-
+-#include <boost/hana/detail/constexpr.hpp>
+-
+-#include <type_traits>
+-using namespace boost::hana;
+-
+-
+-template <typename ...> struct result;
+-struct x1; struct x2; struct x3; struct x4;
+-
+-BOOST_HANA_CONSTEXPR_LAMBDA auto test = [](auto f_) {
+-    using f = decltype(f_);
+-    static_assert(std::is_same<
+-        typename detail::type_function<f>::template apply<>::type,
+-        result<>
+-    >::value, "");
+-
+-    static_assert(std::is_same<
+-        typename detail::type_function<f>::template apply<x1>::type,
+-        result<x1>
+-    >::value, "");
+-
+-    static_assert(std::is_same<
+-        typename detail::type_function<f>::template apply<x1, x2>::type,
+-        result<x1, x2>
+-    >::value, "");
+-
+-    static_assert(std::is_same<
+-        typename detail::type_function<f>::template apply<x1, x2, x3>::type,
+-        result<x1, x2, x3>
+-    >::value, "");
+-
+-    static_assert(std::is_same<
+-        typename detail::type_function<f>::template apply<x1, x2, x3, x4>::type,
+-        result<x1, x2, x3, x4>
+-    >::value, "");
+-};
+-
+-struct mf_class {
+-    template <typename ...t>
+-    struct apply {
+-        using type = result<t...>;
+-    };
+-};
+-
+-namespace boost { namespace hana { namespace detail {
+-    template <>
+-    struct is_metafunction_class<mf_class> {
+-        static constexpr bool value = true;
+-    };
+-}}}
+-
+-int main() {
+-    test([](auto ...t) {
+-        return type<result<typename decltype(t)::type...>>;
+-    });
+-
+-    test(mf_class{});
+-}

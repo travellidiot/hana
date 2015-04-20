@@ -1,0 +1,19 @@
+<% rng = (1..50).step(2).to_a + (50..400).step(25).to_a %>
+
+{
+  "title": {
+    "text": "Compile-time behavior of appending to different types of closures"
+  },
+  "series": [
+    {
+      "name": "lambda",
+      "data": <%= time_compilation('techniques/closure/append/lambda.erb.cpp', rng) %>
+    }, {
+      "name": "linked list",
+      "data": <%= time_compilation('techniques/closure/append/linked.erb.cpp', rng) %>
+    }, {
+      "name": "multiple inheritance",
+      "data": <%= time_compilation('techniques/closure/append/multiple.erb.cpp', rng) %>
+    }
+  ]
+}

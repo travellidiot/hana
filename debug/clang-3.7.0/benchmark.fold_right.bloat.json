@@ -1,0 +1,29 @@
+
+
+{
+  "title": {
+    "text": "Executable size for fold.right"
+  },
+  "yAxis": {
+    "title": {
+      "text": "Executable size (kb)"
+    },
+    "floor": 0
+  },
+  "tooltip": {
+    "valueSuffix": "kb"
+  },
+  "series": [
+    {
+      "name": "Homogeneous hana::tuple",
+      "data": [[1, 111.543], [11, 124.425], [21, 137.465], [31, 148.414], [41, 161.697]]
+    }
+
+    
+    , {
+      "name": "Homogeneous fusion::vector",
+      "data": [[1, 109.019], [11, 180.08], [21, 270.158], [31, 373.83], [41, 501.666]]
+    }
+    
+  ]
+}

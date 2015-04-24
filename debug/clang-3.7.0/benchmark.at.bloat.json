@@ -1,0 +1,29 @@
+
+
+{
+  "title": {
+    "text": "Executable size for at"
+  },
+  "yAxis": {
+    "title": {
+      "text": "Executable size (kb)"
+    },
+    "floor": 0
+  },
+  "tooltip": {
+    "valueSuffix": "kb"
+  },
+  "series": [
+    {
+      "name": "Homogeneous hana::tuple",
+      "data": [[1, 105.271], [11, 143.09], [21, 186.034], [31, 233.748], [41, 286.26]]
+    }
+
+    
+    , {
+      "name": "Homogeneous fusion::vector",
+      "data": [[1, 100.573], [11, 147.884], [21, 215.438], [31, 298.79], [41, 402.038]]
+    }
+    
+  ]
+}

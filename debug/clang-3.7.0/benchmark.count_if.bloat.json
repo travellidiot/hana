@@ -1,0 +1,29 @@
+
+
+{
+  "title": {
+    "text": "Executable size for count_if"
+  },
+  "yAxis": {
+    "title": {
+      "text": "Executable size (kb)"
+    },
+    "floor": 0
+  },
+  "tooltip": {
+    "valueSuffix": "kb"
+  },
+  "series": [
+    {
+      "name": "Homogeneous hana::tuple",
+      "data": [[1, 141.253], [11, 165.169], [21, 178.612], [31, 189.613], [41, 203.283]]
+    }
+
+    
+    , {
+      "name": "Homogeneous fusion::vector",
+      "data": [[1, 106.79], [11, 191.161], [21, 296.514], [31, 424.185], [41, 573.106]]
+    }
+    
+  ]
+}

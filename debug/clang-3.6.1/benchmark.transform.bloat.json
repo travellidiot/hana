@@ -1,0 +1,29 @@
+
+
+{
+  "title": {
+    "text": "Executable size for transform"
+  },
+  "yAxis": {
+    "title": {
+      "text": "Executable size (kb)"
+    },
+    "floor": 0
+  },
+  "tooltip": {
+    "valueSuffix": "kb"
+  },
+  "series": [
+    {
+      "name": "Homogeneous hana::tuple",
+      "data": [[1, 99.067], [11, 115.733], [21, 132.615], [31, 149.465], [41, 170.443]]
+    }
+
+    
+    , {
+      "name": "Homogeneous fusion::vector",
+      "data": [[1, 113.818], [11, 347.648], [21, 648.488], [31, 1023.784], [41, 1461.384]]
+    }
+    
+  ]
+}

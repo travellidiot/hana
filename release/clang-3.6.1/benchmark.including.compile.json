@@ -23,21 +23,21 @@
     }
   },
   "series": [{
-    "name": "Libraries",
+    "name": "Include time",
     "colorByPoint": true,
     "data": [
       {
         "name": "Hana",
-        "y": 0.2597331082
+        "y": 0.26990424760000004
       }
 
       
       , {
         "name": "Boost.MPL",
-        "y": 1.4085831702
+        "y": 1.4969804736
       }, {
         "name": "Boost.Fusion",
-        "y": 1.3925637124
+        "y": 1.415538226
       }
       
 

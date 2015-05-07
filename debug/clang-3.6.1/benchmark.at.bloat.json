@@ -15,13 +15,13 @@
   },
   "series": [
     {
-      "name": "Homogeneous hana::tuple",
+      "name": "hana::tuple",
       "data": [[1, 92.853], [11, 126.248], [21, 172.952], [31, 220.398], [41, 272.6]]
     }
 
     
     , {
-      "name": "Homogeneous fusion::vector",
+      "name": "fusion::vector",
       "data": [[1, 83.296], [11, 134.527], [21, 201.903], [31, 284.999], [41, 383.863]]
     }
     

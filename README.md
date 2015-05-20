@@ -1,4 +1,4 @@
-# Boost.Hana <a href="https://travis-ci.org/ldionne/hana" target="_blank">![Build Status][badge.Travis]</a> <a href="https://gitter.im/ldionne/hana" target="_blank">![Gitter Chat][badge.Gitter]</a> <a href="http://semver.org" target="_blank">![Version][badge.semver]</a>
+# Boost.Hana <a href="https://travis-ci.org/ldionne/hana" target="_blank">![Build Status][badge.Travis]</a> <a href="https://gitter.im/ldionne/hana" target="_blank">![Gitter Chat][badge.Gitter]</a> <a href="http://semver.org" target="_blank">![Version][badge.semver]</a> <a href="https://coveralls.io/r/ldionne/hana" target="_blank">![Coverage Status][badge.Coveralls]
 > Your standard library for metaprogramming
 
 ## Disclaimers
@@ -206,6 +206,7 @@ Please see [LICENSE.md](LICENSE.md).
 
 
 <!-- Links -->
+[badge.Coveralls]: https://coveralls.io/repos/ldionne/hana/badge.svg
 [badge.Gitter]: https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg
 [badge.semver]: https://img.shields.io/badge/semver-0.2.0-brightgreen.svg
 [badge.Travis]: https://travis-ci.org/ldionne/hana.svg?branch=master

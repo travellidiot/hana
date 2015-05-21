@@ -17,6 +17,7 @@ include(CMakeDependentOption)
 option(BOOST_HANA_ENABLE_PEDANTIC "Compile with pedantic enabled." ON)
 option(BOOST_HANA_ENABLE_WERROR   "Fail and stop if a warning is triggered." OFF)
 option(BOOST_HANA_ENABLE_LIBCXX   "Use the -stdlib=libc++ if the compiler supports it." ON)
+option(BOOST_HANA_ENABLE_COVERAGE "Enable code coverage measurement." OFF)
 
 
 ##############################################################################
@@ -51,6 +52,15 @@ endif()
 
 if (BOOST_HANA_ENABLE_LIBCXX)
     boost_hana_append_flag(BOOST_HANA_HAS_STDLIB_LIBCXX -stdlib=libc++)
+endif()
+
+if (BOOST_HANA_ENABLE_COVERAGE)
+    if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message(FATAL_ERROR "Code coverage requires CMAKE_BUILD_TYPE=Debug.")
+    endif()
+    link_directories(/Users/ldionne/code/llvm/release/lib/clang/3.7.0/lib/darwin)
+    link_libraries(clang_rt.profile_osx)
+    add_compile_options(--coverage)
 endif()
 
 
@@ -138,6 +148,11 @@ endfunction()
 
 if (DEFINED LIBCXX_ROOT)
     find_library(libcxx c++ HINTS ${LIBCXX_ROOT}/lib)
+endif()
+
+if (BOOST_HANA_ENABLE_COVERAGE)
+    # SET(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage -lcompiler-rt")
+    # find_library(profile_rt "profile_rt" HINTS "/Users/ldionne/code/llvm/release")
 endif()
 
 #   boost_hana_add_executable(<name> ...)

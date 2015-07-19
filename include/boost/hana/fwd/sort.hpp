@@ -78,6 +78,13 @@ namespace boost { namespace hana {
     //! -------
     //! @include example/sort.cpp
     //!
+    //! Benchmarks
+    //! ----------
+    //! <div class="benchmark-chart"
+    //!      style="min-width: 310px; height: 400px; margin: 0 auto"
+    //!      data-dataset="benchmark.sort.compile.json">
+    //! </div>
+    //!
     //! [1]: http://en.wikipedia.org/wiki/Strict_weak_ordering
 #ifdef BOOST_HANA_DOXYGEN_INVOKED
     constexpr auto sort = [](auto&& xs[, auto&& predicate]) {

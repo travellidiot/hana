@@ -14,6 +14,7 @@ Distributed under the Boost Software License, Version 1.0.
 
 #include <boost/hana/bool.hpp>
 #include <boost/hana/core/tag_of.hpp>
+#include <boost/hana/detail/as_container_element.hpp>
 #include <boost/hana/detail/operators/adl.hpp>
 #include <boost/hana/detail/operators/comparable.hpp>
 #include <boost/hana/detail/operators/monad.hpp>
@@ -58,6 +59,9 @@ namespace boost { namespace hana {
         constexpr optional(optional const&) = default;
         constexpr optional(optional&&) = default;
 
+        template <typename U = T, typename = typename std::enable_if<
+            !std::is_reference<U>::value
+        >::type>
         constexpr optional(T const& t)
             : value_(t)
         { }
@@ -71,8 +75,15 @@ namespace boost { namespace hana {
         constexpr optional& operator=(optional&&) = default;
 
         // 5.3.5, Observers
-        constexpr T const* operator->() const { return &value_; }
-        constexpr T* operator->() { return &value_; }
+        template <typename U = T, typename = typename std::enable_if<
+            !std::is_reference<U>::value
+        >::type>
+        constexpr U const* operator->() const { return &value_; }
+
+        template <typename U = T, typename = typename std::enable_if<
+            !std::is_reference<U>::value
+        >::type>
+        constexpr U* operator->() { return &value_; }
 
         constexpr T&        value() & { return value_; }
         constexpr T const&  value() const& { return value_; }
@@ -114,7 +125,7 @@ namespace boost { namespace hana {
 
     template <typename T>
     constexpr auto make_just_t::operator()(T&& t) const {
-        return optional<typename std::decay<T>::type>(
+        return optional<detail::as_container_element_t<T>>(
             static_cast<T&&>(t)
         );
     }

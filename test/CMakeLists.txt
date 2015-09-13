@@ -38,7 +38,10 @@ endif()
 # Caveats: Take note of public headers and tests that are not supported.
 ##############################################################################
 if (NOT Boost_FOUND)
-    list(APPEND EXCLUDED_UNIT_TESTS "ext/boost/*.cpp")
+    list(APPEND EXCLUDED_UNIT_TESTS
+        "ext/boost/*.cpp"
+        "detail/as_container_element/boost_ref.cpp"
+    )
 
     list(APPEND EXCLUDED_PUBLIC_HEADERS
         "${Boost.Hana_SOURCE_DIR}/include/boost/hana/ext/boost/*.hpp"

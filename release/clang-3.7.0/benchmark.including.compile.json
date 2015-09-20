@@ -27,17 +27,17 @@
     "colorByPoint": true,
     "data": [
       {
-        "name": "Hana",
-        "y": 0.3037093758
+        "name": "Boost.Hana",
+        "y": 0.4884978834
       }
 
       
       , {
         "name": "Boost.MPL",
-        "y": 1.3493492958
+        "y": 2.166679192
       }, {
         "name": "Boost.Fusion",
-        "y": 1.5022314436
+        "y": 2.3821491278
       }
       
 

@@ -19,13 +19,10 @@ debug/
         benchmarkN.json
 release/
     ...
-
-default/
-    ...
 ```
 
-The `debug`, `release` or `default` directories represent the type of the
-CMake build under which the benchmarks were generated. The `compilerN`
-subdirectories correspond to the compiler used to build the benchmarks.
+The `debug` and `release` directories represent the type of the CMake build
+under which the benchmarks were generated. The `compilerN` subdirectories
+correspond to the compiler used to build the benchmarks.
 
 [Hana]: http://github.com/ldionne/hana

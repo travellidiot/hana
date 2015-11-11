@@ -27,4 +27,4 @@ build_script:
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_CXX_COMPILER="C:\projects\hana\clang-37\bin\clang++.exe"
-  - cmake --build . --target check
+  # - cmake --build . --target check

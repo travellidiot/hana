@@ -5,13 +5,14 @@
 os:
   - MinGW
 
+build:
+  verbosity: detailed
+
 platform:
   - x86
-  - x64
 
 configuration:
   - Debug
-  - Release
 
 build_script:
   - cd build && cmake .. && cmake --build . --target check

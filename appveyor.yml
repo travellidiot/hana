@@ -15,4 +15,4 @@ configuration:
   - Debug
 
 build_script:
-  - cd build && cmake .. && cmake --build . --target check
+  - mkdir build && cd build && cmake .. && cmake --build . --target check

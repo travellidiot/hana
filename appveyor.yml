@@ -20,7 +20,7 @@ install:
       Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang-37.7z
 
       echo "Extracting Clang 3.7"
-      7z x clang-37.7z -y -o clang-37
+      7z x clang-37.7z -y clang-37
 
       dir
 

@@ -2,7 +2,7 @@
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)
 
-clone_depth: 1
+shallow_clone: true
 
 os:
   - MinGW
@@ -10,11 +10,18 @@ os:
 build:
   verbosity: detailed
 
-platform:
-  - x86
-
 configuration:
   - Debug
 
+
+before_build:
+  - which clang
+  - which clang++
+  - which clang++-3.7
+  - env
+
 build_script:
-  - mkdir build && cd build && cmake .. && cmake --build . --target check
+  - mkdir build
+  - cd build
+  - cmake .. -DCMAKE_CXX_COMPILER=clang++-3.7
+  - cmake --build . --target check

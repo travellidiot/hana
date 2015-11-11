@@ -14,14 +14,19 @@ configuration:
   - Debug
 
 
-before_build:
-  - which clang
-  - which clang++
-  - which clang++-3.7
-  - env
+install:
+  - ps: >-
+      echo "Downloading Clang 3.7"
+      Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang-37.7z
+
+      echo "Extracting Clang 3.7"
+      7z x clang-37.7z -y -o clang-37
+
+      dir
+
 
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_CXX_COMPILER=clang++-3.7
+  - cmake .. -DCMAKE_CXX_COMPILER=../clang-37/bin/clang++.exe
   - cmake --build . --target check

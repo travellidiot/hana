@@ -21,10 +21,11 @@ configuration:
 
 install:
   - ps: echo "Downloading Clang 3.7"
-  - ps: Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang37-installer.exe
+  - ps: Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang37.7z
   - ps: dir
   - ps: echo "Installing Clang 3.7"
-  - ps: Start-Process -FilePath "C:\projects\hana\clang37-installer.exe"
+  - ps: 7z x clang37.7z -y # -o"C:\projects\hana\" clang-37
+  # - ps: Start-Process -FilePath "C:\projects\hana\clang37-installer.exe"
   - ps: dir
   - ps: cd "C:\Program Files\"
   - ps: dir
@@ -32,8 +33,6 @@ install:
   - ps: dir
   - ps: cd "C:\Program Files\LLVM\msbuild-bin"
   - ps: dir
-  # - ps: 7z x clang-37.7z -y -o"C:\projects\hana\" clang-37
-
 
 
 build_script:

@@ -24,7 +24,7 @@ install:
   - ps: Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang37-installer.exe
   - ps: dir
   - ps: echo "Installing Clang 3.7"
-  - ps: Start-Process -FilePath "clang37-installer.exe"
+  - ps: Start-Process -FilePath "C:\projects\hana\clang37-installer.exe"
   # - ps: 7z x clang-37.7z -y -o"C:\projects\hana\" clang-37
   - ps: dir
 

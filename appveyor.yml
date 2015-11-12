@@ -40,6 +40,6 @@ build_script:
   - cd C:\projects\hana
   - mkdir build
   - cd build
-  - cmd: cmake .. -T LLVM-vs2014 -DCMAKE_CXX_COMPILER="C:\\projects\\hana\\clang37\\msbuild-bin\\cl.exe" -G "Visual Studio 14 2015 Win64"
+  - cmd: cmake .. -T LLVM-vs2014 -DCMAKE_CXX_COMPILER="C:\\Program Files\\LLVM\\msbuild-bin\\cl.exe" -G "Visual Studio 14 2015 Win64"
   # - cmake .. -DCMAKE_CXX_COMPILER="C:\\projects\\hana\\$_OUTDIR\\bin\\clang++.exe"
   # - cmake --build . --target check

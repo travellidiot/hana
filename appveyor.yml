@@ -5,12 +5,12 @@
 shallow_clone: true
 
 os:
-  - MinGW
   - Visual Studio 2015
   - Visual Studio 2015 CTP
   - Visual Studio 2015 CTP 6
   - Visual Studio 2015 Preview
   - Visual Studio 2015 RC
+  - MinGW
 
 build:
   verbosity: detailed

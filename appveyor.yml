@@ -25,11 +25,19 @@ install:
   - ps: dir
   - ps: echo "Installing Clang 3.7"
   - ps: Start-Process -FilePath "C:\projects\hana\clang37-installer.exe"
-  # - ps: 7z x clang-37.7z -y -o"C:\projects\hana\" clang-37
   - ps: dir
+  - ps: cd "C:\Program Files\"
+  - ps: dir
+  - ps: cd "C:\Program Files\LLVM"
+  - ps: dir
+  - ps: cd "C:\Program Files\LLVM\msbuild-bin"
+  - ps: dir
+  # - ps: 7z x clang-37.7z -y -o"C:\projects\hana\" clang-37
+
 
 
 build_script:
+  - cd C:\projects\hana
   - mkdir build
   - cd build
   - cmd: cmake .. -T LLVM-vs2014 -DCMAKE_CXX_COMPILER="C:\\Program Files\\LLVM\\msbuild-bin\\cl.exe" -G "Visual Studio 14 2015 Win64"

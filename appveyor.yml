@@ -6,6 +6,11 @@ shallow_clone: true
 
 os:
   - MinGW
+  - Visual Studio 2015
+  - Visual Studio 2015 CTP
+  - Visual Studio 2015 CTP 6
+  - Visual Studio 2015 Preview
+  - Visual Studio 2015 RC
 
 build:
   verbosity: detailed
@@ -19,7 +24,7 @@ install:
   - ps: Start-FileDownload "http://llvm.org/releases/3.7.0/LLVM-3.7.0-win64.exe" -FileName clang37-installer.exe
   - ps: dir
   - ps: echo "Installing Clang 3.7"
-  - ps: ./clang37-installer.exe
+  - ps: Start-Process -FilePath "clang37-installer.exe"
   # - ps: 7z x clang-37.7z -y -o"C:\projects\hana\" clang-37
   - ps: dir
 
@@ -27,5 +32,6 @@ install:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -DCMAKE_CXX_COMPILER="C:\projects\hana\clang-37\bin\clang++.exe"
+  - cmake .. -T LLVM-vs2014 -DCMAKE_CXX_COMPILER="C:\Program Files\LLVM\msbuild-bin\cl.exe" -G "Visual Studio 14 2015 Win64"
+  # - cmake .. -DCMAKE_CXX_COMPILER="C:\projects\hana\clang-37\bin\clang++.exe"
   # - cmake --build . --target check
